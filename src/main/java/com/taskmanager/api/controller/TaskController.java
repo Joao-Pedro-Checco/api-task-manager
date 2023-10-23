@@ -1,9 +1,6 @@
 package com.taskmanager.api.controller;
 
-import com.taskmanager.api.domain.Task;
-import com.taskmanager.api.domain.TaskCreationData;
-import com.taskmanager.api.domain.TaskListingData;
-import com.taskmanager.api.domain.TaskRepository;
+import com.taskmanager.api.domain.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,5 +29,12 @@ public class TaskController {
     @Transactional
     public void createTask(@RequestBody TaskCreationData data) {
         repository.save(new Task(data));
+    }
+
+    @PutMapping
+    @Transactional
+    public void updateTask(@RequestBody TaskUpdatingData data) {
+        var task = repository.getReferenceById(data.id());
+        task.updateInfo(data);
     }
 }

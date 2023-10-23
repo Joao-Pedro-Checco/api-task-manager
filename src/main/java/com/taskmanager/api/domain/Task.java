@@ -25,4 +25,13 @@ public class Task {
         this.description = data.description();
         this.completed = false;
     }
+
+    public void updateInfo(TaskUpdatingData data) {
+        if (data.title() != null) {
+            this.title = data.title();
+        }
+        if (data.description() != null) {
+            this.description = data.description();
+        }
+    }
 }
