@@ -1,10 +1,7 @@
 package com.taskmanager.api.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity(name = "Task")
 @Table(name = "tasks")
@@ -32,6 +29,9 @@ public class Task {
         }
         if (data.description() != null) {
             this.description = data.description();
+        }
+        if (data.completed() != null) {
+            this.completed = data.completed();
         }
     }
 }
