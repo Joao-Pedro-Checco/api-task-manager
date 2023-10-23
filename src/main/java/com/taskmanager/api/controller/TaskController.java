@@ -2,19 +2,24 @@ package com.taskmanager.api.controller;
 
 import com.taskmanager.api.domain.Task;
 import com.taskmanager.api.domain.TaskCreationData;
+import com.taskmanager.api.domain.TaskListingData;
 import com.taskmanager.api.domain.TaskRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
     @Autowired
     private TaskRepository repository;
+
+    @GetMapping("/all")
+    public Page<TaskListingData> listAllTasks(Pageable pagination) {
+        return repository.findAll(pagination).map(TaskListingData::new);
+    }
 
     @PostMapping
     @Transactional
