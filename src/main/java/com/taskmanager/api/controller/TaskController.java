@@ -30,7 +30,7 @@ public class TaskController {
 
     @PostMapping
     @Transactional
-    public void createTasks(@RequestBody TaskCreationData data) {
+    public void createTask(@RequestBody TaskCreationData data) {
         repository.save(new Task(data));
     }
 }
