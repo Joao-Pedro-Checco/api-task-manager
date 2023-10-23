@@ -21,6 +21,13 @@ public class TaskController {
         return repository.findAll(pagination).map(TaskListingData::new);
     }
 
+    @GetMapping
+    public Page<TaskListingData> listByCompleted(Pageable pagination, @RequestParam boolean completed) {
+        return completed ?
+                repository.findAllByCompletedTrue(pagination).map(TaskListingData::new) :
+                repository.findAllByCompletedFalse(pagination).map(TaskListingData::new);
+    }
+
     @PostMapping
     @Transactional
     public void createTasks(@RequestBody TaskCreationData data) {
